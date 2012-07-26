@@ -156,11 +156,7 @@ scheme_obj_to_gvariant (Scheme_Object *list)
 
 /**
  *For Server : Convert an array of Scheme objects into a list of the same objects for SchemeObject to Gvariant
-<<<<<<< HEAD
- * 
-=======
  *We have not used this recursive helper function. We did it iteratively below.
->>>>>>> 3cb492700f6fe2265add3da53ebfb79622e240de
  */
 Scheme_Object *
 g_variant_tuple_to_scheme_list (GVariant *tuple, int index, int size)
