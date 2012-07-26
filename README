@@ -1,0 +1,45 @@
+Authors : Hart Russell, Prashanna Tiwaree, Sam Rebelsky(advisor), Zarni Htet
+
+Description of Program	
+We have implemented a client API for Racket using DBus to communicate with scriptable interfaces such as the Gimp and Inkscript
+
+Current Status
+In this repository, we currently have files for a working client API and a test server (which is authored by our advisor Sam Rebelsky). We are still developing a server-side API implementation for the Gimp and its functions.
+
+
+Steps to install, compile and use our program
+Requirements
+1. DrRacket
+2. DBus
+3. D-feet 
+4. Gio libraries as mentioned in our rdbus.h and rdbus.c files
+
+In the terminal
+5. make
+For compilation,
+The default of the makefile is rdbus.so. (We are using inside Racket extension to communiate with DBus and need to load the shared object to the enviroment space where Racket will access for permissible functions)
+
+6. make rams-test-server.c
+(This is to compile the test-server)
+7. printenv
+(You may copy the address of the bus ==> DBUS_SESSION_BUS_ADDRESS
+8. d-feet &
+Click on the icon of the left hand corner of d-feet and paste in the address.
+9. Search for edu.grinnell.cs.glimmer.RAMSTest
+(This is our test-sever and by clicking on interfaces, and there will be a listing of methods that the client can invoke from the server).
+10. Open drracket from the terminal.
+11. In the interactions window:
+(load-extension "rdbus.so")
+(rdbus_init)
+(define object (rdbus-get-object "edu.grinnell.cs.glimmer.RAMStest" "/edu/grinnell/cs/glimmer/RAMStest" "edu.grinnell.cs.glimmer.RAMStest"))
+(rdbus-call-method object "v2v" )
+(rdbus-call-method object "i2i" 23)
+
+--> You can look at the rdbus.c and d-feet to figure out what functions you can call and what parameters you will have to write.
+
+rdbus-get-object gets the proxy object (that of the server) that we want to connect to.
+rdbus-call-method takes in as arguments 
+1. the proxy object
+2. the name of the method in " "
+3. arguments (we support multiple data types and as many as you can possibly think of though you would need a corresponding server-call that would respond). In our case this is intended to use Gimp functions.
+
